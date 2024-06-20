@@ -1,0 +1,30 @@
+import sqlite3
+
+# Создаем подключение к базе данных (или создаем новую, если ее нет)
+conn = sqlite3.connect('my_database.db')
+
+# Создаем курсор для выполнения SQL-запросов
+cursor = conn.cursor()
+
+# Создаем первую таблицу с тремя колонками
+cursor.execute('CREATE TABLE IF NOT EXISTS table1 (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)')
+
+# Добавляем три записи в первую таблицу
+cursor.execute('INSERT INTO table1 (Имя, Возраст) VALUES (?, ?)', ('Максим', 25))
+cursor.execute('INSERT INTO table1 (Имя, Возраст) VALUES (?, ?)', ('Егор', 30))
+cursor.execute('INSERT INTO table1 (Имя, Возраст) VALUES (?, ?)', ('Дмитрий', 22))
+
+# Создаем вторую таблицу с пятью колонками
+cursor.execute('CREATE TABLE IF NOT EXISTS table2 (id INTEGER PRIMARY KEY, city TEXT, profession TEXT, salary REAL, experience INTEGER)')
+
+# Добавляем три записи во вторую таблицу
+cursor.execute('INSERT INTO table2 (Город, Должность, Зарплата, Возраст) VALUES (?, ?, ?, ?)',
+               ('Минск', 'Менеджер', 1000, 25))
+cursor.execute('INSERT INTO table2 (Город, Должность, Зарплата, Возраст) VALUES (?, ?, ?, ?)',
+               ('Минск', 'Администратор', 1200, 33))
+cursor.execute('INSERT INTO table2 (Город, Должность, Зарплата, Возраст) VALUES (?, ?, ?, ?)',
+               ('Москва', 'Проджект', 900, 24))
+conn.commit()
+conn.close()
+
+print("База данных успешно создана и заполнена!")
